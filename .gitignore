@@ -1,0 +1,13 @@
+__pycache__
+config.json
+.mp/
+venv/
+google-maps-scraper-0.9.7/
+niche.txt
+*.exe
+auto.sh
+client_secrets.json
+token.pickle
+test-upload-file.mp4
+upload_youtube.py
+append_redis.py

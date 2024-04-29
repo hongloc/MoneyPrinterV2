@@ -1,0 +1,23 @@
+self.options.add_argument('--headless')
+self.options.add_argument('--no-sandbox')
+self.options.add_argument('--disable-dev-shm-usage')
+
+self.service: Service = Service(ChromeDriverManager().install())
+
+self.browser: webdriver.Chrome = webdriver.Chrome(service=self.service, options=self.options)
+
+models_json_path = "/usr/local/lib/python3.10/dist-packages/TTS/.models.json"
+
+python src/upload_youtube.py --file="test-upload-file.mp4" --title="Summer vacation in California" --description="Had fun surfing in Santa Cruz" --keywords="surfing,Santa Cruz" --category="22" --privacyStatus="private"
+
+
+prodia # default like comic
+"image_model": "simurg", # real life imgs with girlssssss
+lexica # like real life people
+animefy # anime
+raava # like novel
+shonin # like novel but ugly
+
+gpt35_turbo # Unveiling Ancient Empires' Bizarre Rituals #History #AncientCustoms: Embark on a journey through ancient rituals and ceremonies in this captivating video. From Aztec priests under the moonlit sky to Egyptian pharaohs amidst towering pyramids, witness the power and mystique of ancient civilizations. Explore Mayan shamans and Chinese imperial ceremonies, all intertwined with cosmic forces and mystical energies. Join us as we uncover the secrets and dark side of ancient power in this mesmerizing exploration of ancient rituals.
+
+
