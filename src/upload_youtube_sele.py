@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 from config import get_user_data
+import os
 
 def upload_youtube_using_selenium(title, description, video_path):
   options = webdriver.ChromeOptions()
@@ -116,4 +117,15 @@ def upload_youtube_using_selenium(title, description, video_path):
   driver.quit()
 
 if __name__ == "__main__":
-    upload_youtube_using_selenium("test-upload-file.mp4", "test upload se col title", "test upload desc")
+    # upload_youtube_using_selenium("test-upload-file.mp4", "test upload se col title", "test upload desc")
+    src = "shorts"
+    for fname in os.listdir(src):
+        # build the path to the folder
+        folder_path = os.path.join(src, fname)
+        if os.path.isdir(folder_path):
+            # we are sure this is a folder; now lets iterate it
+            for file_name in os.listdir(folder_path):
+                file_path = os.path.join(folder_path, file_name)
+                print(file_path)
+                # now you can apply any function assuming it is a file
+                # or double check it if needed as `os.path.isfile(file_path)`
