@@ -15,8 +15,8 @@ from classes.YouTube import YouTube
 from prettytable import PrettyTable
 from classes.Outreach import Outreach
 from classes.AFM import AffiliateMarketing
-# from upload_youtube import upload_video
-from upload_youtube_sele import upload_youtube_using_selenium
+from upload_youtube import upload_video
+# from upload_youtube_sele import upload_youtube_using_selenium
 
 def main():
 
@@ -91,86 +91,25 @@ def main():
                 error("Invalid account selected. Please try again.", "red")
                 main()
             else:
-
-                youtube = YouTube(
-                    selected_account["id"],
-                    selected_account["nickname"],
-                    selected_account["firefox_profile"],
-                    # selected_account["niche"],
-                    get_niche(),
-                    selected_account["language"]
-                )
-
-                while True:
+                niche = get_niche()
+                print('niche: ', niche)
+                while niche:
+                    youtube = YouTube(
+                        selected_account["id"],
+                        selected_account["nickname"],
+                        selected_account["firefox_profile"],
+                        # selected_account["niche"],
+                        niche,
+                        selected_account["language"]
+                    )
                     rem_temp_files()
-                    info("\n============ OPTIONS ============", False)
-
-                    for idx, youtube_option in enumerate(YOUTUBE_OPTIONS):
-                        print(colored(f" {idx + 1}. {youtube_option}", "cyan"))
-
-                    info("=================================\n", False)
-
-                    # Get user input
-                    user_input = int(question("Select an option: "))
                     tts = TTS()
+                    youtube.generate_video(tts)
+                    # youtube.upload_video()
+                    upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
+                    # upload_youtube_using_selenium(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
+                    niche = get_niche()
 
-                    if user_input == 1:
-                        youtube.generate_video(tts)
-                        upload_to_yt = question("Do you want to upload this video to YouTube? (Yes/No): ")
-                        if upload_to_yt.lower() == "yes":
-                            # youtube.upload_video()
-                            # upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
-                            upload_youtube_using_selenium(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
-
-                    elif user_input == 2:
-                        videos = youtube.get_videos()
-
-                        if len(videos) > 0:
-                            videos_table = PrettyTable()
-                            videos_table.field_names = ["ID", "Date", "Title"]
-
-                            for video in videos:
-                                videos_table.add_row([
-                                    videos.index(video) + 1,
-                                    colored(video["date"], "blue"),
-                                    colored(video["title"][:60] + "...", "green")
-                                ])
-
-                            print(videos_table)
-                        else:
-                            warning(" No videos found.")
-                    elif user_input == 3:
-                        info("How often do you want to upload?")
-
-                        info("\n============ OPTIONS ============", False)
-                        for idx, cron_option in enumerate(YOUTUBE_CRON_OPTIONS):
-                            print(colored(f" {idx + 1}. {cron_option}", "cyan"))
-
-                        info("=================================\n", False)
-
-                        user_input = int(question("Select an Option: "))
-
-                        cron_script_path = os.path.join(ROOT_DIR, "src", "cron.py")
-                        command = f"python {cron_script_path} youtube {selected_account['id']}"
-
-                        def job():
-                            subprocess.run(command)
-
-                        if user_input == 1:
-                            # Upload Once
-                            schedule.every(1).day.do(job)
-                            success("Set up CRON Job.")
-                        elif user_input == 2:
-                            # Upload Twice a day
-                            schedule.every().day.at("10:00").do(job)
-                            schedule.every().day.at("16:00").do(job)
-                            success("Set up CRON Job.")
-                        else:
-                            break
-                    elif user_input == 4:
-                        if get_verbose():
-                            info(" => Climbing Options Ladder...", False)
-                        break
     elif user_input == 2:
         info("Starting Twitter Bot...")
 
