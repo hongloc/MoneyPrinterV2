@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 from config import get_user_data
-import os
+import os, shutil
 
 def upload_youtube_using_selenium(video_path, title, description):
   options = webdriver.ChromeOptions()
@@ -120,32 +120,35 @@ def upload_youtube_using_selenium(video_path, title, description):
       print("\t=> Getting video URL...")
   driver.quit()
 
-# if __name__ == "__main__":
-#     # upload_youtube_using_selenium("test-upload-file.mp4", "test upload se col title", "test upload desc")
-#     parent_folder = r"D:\myprojects\relevant-jobs\MoneyPrinterV2"
-#     src = "shorts"
-#     for fname in os.listdir(src):
-#         # build the path to the folder
-#         folder_path = os.path.join(src, fname)
-#         if os.path.isdir(folder_path):
-#             # we are sure this is a folder; now lets iterate it
-#             video_path = None
-#             text_path = None
-#             for file_name in os.listdir(folder_path):
-#                 file_path = os.path.join(folder_path, file_name)
-#                 if 'mp4' in file_name:
-#                     video_path = os.path.join(parent_folder, file_path)
-#                 else:
-#                     text_path = file_path
-#                 # now you can apply any function assuming it is a file
-#                 # or double check it if needed as `os.path.isfile(file_path)`
-#             title = None
-#             description = None
-#             with open(text_path, 'r') as file_read:
-#                 all_lines = file_read.readlines()
-#                 title = all_lines[0].replace('\n', '')
-#                 description = all_lines[1]
-#             print('video_path: ', video_path)
-#             print('title: ', title)
-#             print('description: ', description)
-#             upload_youtube_using_selenium(video_path, title, description)
+if __name__ == "__main__":
+    # upload_youtube_using_selenium("test-upload-file.mp4", "test upload se col title", "test upload desc")
+    parent_folder = r"D:\myprojects\relevant-jobs\MoneyPrinterV2"
+    src = "shorts"
+    for fname in os.listdir(src):
+        # build the path to the folder
+        folder_path = os.path.join(src, fname)
+        if os.path.isdir(folder_path):
+            # we are sure this is a folder; now lets iterate it
+            video_path = None
+            text_path = None
+            for file_name in os.listdir(folder_path):
+                file_path = os.path.join(folder_path, file_name)
+                if 'mp4' in file_name:
+                    video_path = os.path.join(parent_folder, file_path)
+                else:
+                    text_path = file_path
+                # now you can apply any function assuming it is a file
+                # or double check it if needed as `os.path.isfile(file_path)`
+            title = None
+            description = None
+            print(text_path)
+            with open(text_path, 'r', encoding='utf-8') as file_read:
+                all_lines = file_read.readlines()
+                title = all_lines[0].replace('\n', '')
+                description = all_lines[1]
+            print('video_path: ', video_path)
+            print('title: ', title)
+            print('description: ', description)
+            upload_youtube_using_selenium(video_path, title, description)
+            abs_folder_path = os.path.join(parent_folder, folder_path)
+            shutil.rmtree(abs_folder_path)
