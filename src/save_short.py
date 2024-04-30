@@ -2,7 +2,7 @@ import os
 import shutil
 
 # Parent Directory path 
-parent_dir = "/content/gdrive/My Drive/moneyprinter"
+parent_dir = "/content/gdrive/My Drive/moneyprinter/shorts"
 
 def save_short(youtube_path, title, description):
   global parent_dir

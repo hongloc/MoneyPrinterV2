@@ -111,7 +111,7 @@ def main():
                     # upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
                     # upload_youtube_using_selenium(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
                     niche = get_niche()
-
+                return
     elif user_input == 2:
         info("Starting Twitter Bot...")
 
