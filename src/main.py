@@ -15,7 +15,7 @@ from classes.YouTube import YouTube
 from prettytable import PrettyTable
 from classes.Outreach import Outreach
 from classes.AFM import AffiliateMarketing
-# from upload_youtube import upload_video
+from upload_youtube import upload_video
 from save_short import save_short
 # from upload_youtube_sele import upload_youtube_using_selenium
 
@@ -107,8 +107,8 @@ def main():
                     tts = TTS()
                     youtube.generate_video(tts)
                     # youtube.upload_video()
-                    save_short(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
-                    # upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
+                    # save_short(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
+                    upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
                     # upload_youtube_using_selenium(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
                     niche = get_niche()
                 return
