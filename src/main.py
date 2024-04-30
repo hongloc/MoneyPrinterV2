@@ -15,7 +15,7 @@ from classes.YouTube import YouTube
 from prettytable import PrettyTable
 from classes.Outreach import Outreach
 from classes.AFM import AffiliateMarketing
-from upload_youtube import upload_video
+# from upload_youtube import upload_video
 from save_short import save_short
 # from upload_youtube_sele import upload_youtube_using_selenium
 
@@ -93,8 +93,8 @@ def main():
                 main()
             else:
                 niche = get_niche()
-                print('niche: ', niche)
                 while niche:
+                    print('niche: ', niche)
                     youtube = YouTube(
                         selected_account["id"],
                         selected_account["nickname"],
