@@ -15,7 +15,7 @@ from classes.YouTube import YouTube
 from prettytable import PrettyTable
 from classes.Outreach import Outreach
 from classes.AFM import AffiliateMarketing
-from upload_youtube import upload_video
+# from upload_youtube import upload_video
 from save_short import save_short
 # from upload_youtube_sele import upload_youtube_using_selenium
 
