@@ -107,8 +107,8 @@ def main():
                     tts = TTS()
                     youtube.generate_video(tts)
                     # youtube.upload_video()
-                    # save_short(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
-                    upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
+                    save_short(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
+                    # upload_video(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'], "22", "", "public")
                     # upload_youtube_using_selenium(youtube.video_path, youtube.metadata['title'], youtube.metadata['description'])
                     niche = get_niche()
                 return
@@ -321,5 +321,5 @@ if __name__ == "__main__":
     # Fetch MP3 Files
     fetch_songs()
 
-    while True:
-        main()
+    # while True:
+    main()
