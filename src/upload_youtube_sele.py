@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
+import pyperclip
 import time
 from config import get_user_data
 import os, shutil
@@ -45,10 +48,17 @@ def upload_youtube_using_selenium(video_path, title, description):
   if verbose:
       print("\t=> Setting title...")
 
+
   title_el.click()
   time.sleep(1)
   title_el.clear()
-  title_el.send_keys(title)
+  title_el.click()
+  # title_el.send_keys(title)
+  print('title here: ', title)
+  pyperclip.copy(title)
+  act = ActionChains(driver)
+  act.key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
+
   
   detail_el = driver.find_element(By.ID, YOUTUBE_DETAILS)
   detail_el.click()
