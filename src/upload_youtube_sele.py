@@ -71,8 +71,12 @@ def upload_youtube_using_selenium(video_path, title, description):
   description_el.click()
   time.sleep(0.5)
   description_el.clear()
-  description_el.send_keys(description)
-
+  # description_el.send_keys(description)
+  print('description here: ', description)
+  description_el.click()
+  pyperclip.copy(description)
+  act = ActionChains(driver)
+  act.key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
   time.sleep(0.5)
 
   # Set `made for kids` option
