@@ -276,12 +276,14 @@ class YouTube:
             .replace("```", "")
 
         image_prompts = []
-
+        print('completion: ', completion)
         if "image_prompts" in completion:
             image_prompts = json.loads(completion)["image_prompts"]
+            print('image prompts: ', image_prompts)
         else:
             try:
                 image_prompts = json.loads(completion)
+                print('image prompts: ', image_prompts)
                 if get_verbose():
                     info(f" => Generated Image Prompts: {image_prompts}")
             except Exception:
@@ -350,7 +352,7 @@ class YouTube:
             #     self.images.append(image_path)
                 
             #     return image_path
-
+            ok = True
             bytes_content = mygenerator.create(prompt)
 
             image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
