@@ -67,6 +67,22 @@ def parse_model(model_name: str) -> any:
         return g4f.models.llama2_70b
     elif model_name == "mixtral_8x7b":
         return g4f.models.mixtral_8x7b
+    elif model_name == "openchat_35":
+        return g4f.models.openchat_35
+    elif model_name == "dbrx-instruct":
+        return g4f.models.dbrx_instruct
+    elif model_name == "lzlv-70b":
+        return g4f.models.lzlv_70b
+    elif model_name == "airoboros-70b":
+        return g4f.models.airoboros_70b
+    elif model_name == "pi":
+        return g4f.models.pi
+    elif model_name == "codellama-34b-instruct":
+        return g4f.models.codellama_34b_instruct
+    elif model_name == "codellama-70b-instruct":
+        return g4f.models.codellama_70b_instruct
+    elif model_name == "dolphin-mixtral-8x7b":
+        return g4f.models.dolphin_mixtral_8x7b
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo

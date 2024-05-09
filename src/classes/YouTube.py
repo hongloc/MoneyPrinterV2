@@ -25,6 +25,9 @@ from selenium.webdriver.chrome.options import Options
 from moviepy.video.tools.subtitles import SubtitlesClip
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
+from .GeneratorImg import Generation
+
+mygenerator = Generation()
 
 # Set ImageMagick Path
 change_settings({"IMAGEMAGICK_BINARY": get_imagemagick_path()})
@@ -217,10 +220,10 @@ class YouTube:
         """
         title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
 
-        if len(title) > 100:
-            if get_verbose():
-                warning("Generated Title is too long. Retrying...")
-            return self.generate_metadata()
+        # if len(title) > 100:
+        #     if get_verbose():
+        #         warning("Generated Title is too long. Retrying...")
+        #     return self.generate_metadata()
 
         description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
         
@@ -316,37 +319,52 @@ class YouTube:
         """
         ok = False
         while ok == False:
-            url = f"https://hercai.onrender.com/{get_image_model()}/text2image?prompt={prompt}"
+            # url = f"https://hercai.onrender.com/{get_image_model()}/text2image?prompt={prompt}"
 
-            r = requests.get(url)
-            parsed = r.json()
+            # r = requests.get(url)
+            # parsed = r.json()
 
-            if "url" not in parsed or not parsed.get("url"):
-                # Retry
-                if get_verbose():
-                    info(f" => Failed to generate Image for Prompt: {prompt}. Retrying...")
-                ok = False
-            else:
-                ok = True
-                image_url = parsed["url"]
+            # if "url" not in parsed or not parsed.get("url"):
+            #     # Retry
+            #     if get_verbose():
+            #         info(f" => Failed to generate Image for Prompt: {prompt}. Retrying...")
+            #     ok = False
+            # else:
+            #     ok = True
+            #     image_url = parsed["url"]
 
-                if get_verbose():
-                    info(f" => Generated Image: {image_url}")
+            #     if get_verbose():
+            #         info(f" => Generated Image: {image_url}")
 
-                image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
+            #     image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
                 
-                with open(image_path, "wb") as image_file:
-                    # Write bytes to file
-                    image_r = requests.get(image_url)
+            #     with open(image_path, "wb") as image_file:
+            #         # Write bytes to file
+            #         image_r = requests.get(image_url)
 
-                    image_file.write(image_r.content)
+            #         image_file.write(image_r.content)
 
-                if get_verbose():
-                    info(f" => Wrote Image to \"{image_path}\"\n")
+            #     if get_verbose():
+            #         info(f" => Wrote Image to \"{image_path}\"\n")
 
-                self.images.append(image_path)
+            #     self.images.append(image_path)
                 
-                return image_path
+            #     return image_path
+
+            bytes_content = mygenerator.create(prompt)
+
+            image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
+                
+            with open(image_path, "wb") as image_file:
+                # Write bytes to file
+                image_file.write(bytes_content)
+
+            if get_verbose():
+                info(f" => Wrote Image to \"{image_path}\"\n")
+
+            self.images.append(image_path)
+            
+            return image_path
 
     def generate_script_to_speech(self, tts_instance: TTS) -> str:
         """
