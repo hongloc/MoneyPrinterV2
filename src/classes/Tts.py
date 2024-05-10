@@ -3,6 +3,7 @@ import os
 from config import ROOT_DIR
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
+from TTS.api import TTS as TTSAPI
 
 class TTS:
     """
@@ -31,13 +32,11 @@ class TTS:
 
         # Download tts_models/en/ljspeech/fast_pitch
         self._model_path, self._config_path, self._model_item = \
-            # self._model_manager.download_model("tts_models/en/ljspeech/tacotron2-DDC_ph")
-            self._model_manager.download_model("tts_models/vie/fairseq/vits")
+            self._model_manager.download_model("tts_models/en/ljspeech/tacotron2-DDC_ph")
 
         # Download vocoder_models/en/ljspeech/hifigan_v2 as our vocoder
         voc_path, voc_config_path, _ = self._model_manager. \
-            # download_model("vocoder_models/en/ljspeech/univnet")
-            download_model("vocoder_models/universal/libri-tts/fullband-melgan")
+            download_model("vocoder_models/en/ljspeech/univnet")
         
         # Initialize the Synthesizer
         self._synthesizer = Synthesizer(
