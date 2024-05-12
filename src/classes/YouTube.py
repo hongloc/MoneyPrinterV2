@@ -32,6 +32,27 @@ mygenerator = Generation()
 # Set ImageMagick Path
 change_settings({"IMAGEMAGICK_BINARY": get_imagemagick_path()})
 
+def remove_g4f_finishreason(input_str):
+    regex = r"<g4f.*"
+
+    test_str = input_str
+
+    matches = re.finditer(regex, test_str, re.MULTILINE)
+    match_end = match_start = 0
+    for matchNum, match in enumerate(matches, start=1):
+        
+        print ("Match {matchNum} was found at {start}-{end}: {match}".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+        match_start = match.start()
+        match_end = match.end()
+        for groupNum in range(0, len(match.groups())):
+            groupNum = groupNum + 1
+            
+            print ("Group {groupNum} found at {start}-{end}: {group}".format(groupNum = groupNum, start = match.start(groupNum), end = match.end(groupNum), group = match.group(groupNum)))
+    if match_end != match_start != 0:
+        test_str = test_str[:match_start]
+        print('test_str after edit: ', test_str)
+    return test_str
+
 class YouTube:
     """
     Class for YouTube Automation.
@@ -119,19 +140,8 @@ class YouTube:
                     }
                 ]
             )
-            print('responseeee: ', response)
-            print('responseeee[:-59]: ', response[:-59])
-            return response[:-59]
+            return remove_g4f_finishreason(response)
         else:
-            # print(g4f.ChatCompletion.create(
-            #     model=model,
-            #     messages=[
-            #         {
-            #             "role": "user",
-            #             "content": prompt
-            #         }
-            #     ]
-            # ))
             response = g4f.ChatCompletion.create(
                 model=model,
                 messages=[
@@ -141,9 +151,7 @@ class YouTube:
                     }
                 ]
             )
-            print('response2 2: ', response)
-            print('response2 2[:-59]: ', response[:-59])
-            return response[:-59]
+            return remove_g4f_finishreason(response)
 
     def generate_topic(self) -> str:
         """
@@ -159,7 +167,7 @@ class YouTube:
 
         self.subject = completion
 
-        return completion
+        return remove_g4f_finishreason(completion)
 
     def generate_script(self) -> str:
         """
@@ -195,7 +203,7 @@ class YouTube:
 
         # Apply regex to remove *
         completion = re.sub(r"\*", "", completion)
-        completion = completion[:-59]
+        completion = remove_g4f_finishreason(completion)
         print('completion generate_script: ', completion)
         
         if not completion:
@@ -219,14 +227,14 @@ class YouTube:
             metadata (dict): The generated metadata.
         """
         title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
-
+        title = remove_g4f_finishreason(title)
         # if len(title) > 100:
         #     if get_verbose():
         #         warning("Generated Title is too long. Retrying...")
         #     return self.generate_metadata()
 
         description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
-        
+        title = remove_g4f_finishreason(description)
         self.metadata = {
             "title": title,
             "description": description
@@ -276,6 +284,7 @@ class YouTube:
             .replace("```json", "") \
             .replace("```", "")
 
+        # completion = remove_g4f_finishreason(completion)
         image_prompts = []
         print('completion generate_prompts: ', completion)
         if "image_prompts" in completion:
