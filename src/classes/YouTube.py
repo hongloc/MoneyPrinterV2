@@ -167,7 +167,7 @@ class YouTube:
 
         self.subject = completion
 
-        return remove_g4f_finishreason(completion)
+        return completion
 
     def generate_script(self) -> str:
         """
@@ -203,7 +203,6 @@ class YouTube:
 
         # Apply regex to remove *
         completion = re.sub(r"\*", "", completion)
-        completion = remove_g4f_finishreason(completion)
         print('completion generate_script: ', completion)
         
         if not completion:
@@ -227,14 +226,14 @@ class YouTube:
             metadata (dict): The generated metadata.
         """
         title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
-        title = remove_g4f_finishreason(title)
+        
         # if len(title) > 100:
         #     if get_verbose():
         #         warning("Generated Title is too long. Retrying...")
         #     return self.generate_metadata()
 
         description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
-        title = remove_g4f_finishreason(description)
+        
         self.metadata = {
             "title": title,
             "description": description
