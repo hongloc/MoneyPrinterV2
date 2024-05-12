@@ -110,16 +110,7 @@ class YouTube:
             response (str): The generated AI Repsonse.
         """
         if not model:
-            print(g4f.ChatCompletion.create(
-                model=parse_model(get_model()),
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            ))
-            return g4f.ChatCompletion.create(
+            response = g4f.ChatCompletion.create(
                 model=parse_model(get_model()),
                 messages=[
                     {
@@ -128,17 +119,20 @@ class YouTube:
                     }
                 ]
             )
+            print('responseeee: ', response)
+            print('responseeee[:-59]: ', response[:-59])
+            return response[:-59]
         else:
-            print(g4f.ChatCompletion.create(
-                model=model,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            ))
-            return g4f.ChatCompletion.create(
+            # print(g4f.ChatCompletion.create(
+            #     model=model,
+            #     messages=[
+            #         {
+            #             "role": "user",
+            #             "content": prompt
+            #         }
+            #     ]
+            # ))
+            response = g4f.ChatCompletion.create(
                 model=model,
                 messages=[
                     {
@@ -147,6 +141,9 @@ class YouTube:
                     }
                 ]
             )
+            print('response2 2: ', response)
+            print('response2 2[:-59]: ', response[:-59])
+            return response[:-59]
 
     def generate_topic(self) -> str:
         """
@@ -156,7 +153,7 @@ class YouTube:
             topic (str): The generated topic.
         """
         completion = self.generate_response(f"Please generate a specific video idea that takes about the following topic: {self.niche}. Make it exactly one sentence. Only return the topic, nothing else.")
-
+        print('completion generate_topic: ', completion)
         if not completion:
             error("Failed to generate Topic.")
 
@@ -193,10 +190,13 @@ class YouTube:
         Subject: {self.subject}
         Language: {self.language}
         """
+        # print('prompt generate_script: ', prompt)
         completion = self.generate_response(prompt)
 
         # Apply regex to remove *
         completion = re.sub(r"\*", "", completion)
+        completion = completion[:-59]
+        print('completion generate_script: ', completion)
         
         if not completion:
             error("The generated script is empty.")
@@ -270,13 +270,14 @@ class YouTube:
         For context, here is the full text:
         {self.script}
         """
+        # print('prompt generate_prompts: ', prompt)
 
         completion = str(self.generate_response(prompt, model=parse_model(get_image_prompt_llm())))\
             .replace("```json", "") \
             .replace("```", "")
 
         image_prompts = []
-        print('completion: ', completion)
+        print('completion generate_prompts: ', completion)
         if "image_prompts" in completion:
             image_prompts = json.loads(completion)["image_prompts"]
             print('image prompts: ', image_prompts)
