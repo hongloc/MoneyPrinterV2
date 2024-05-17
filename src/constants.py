@@ -83,6 +83,14 @@ def parse_model(model_name: str) -> any:
         return g4f.models.codellama_70b_instruct
     elif model_name == "dolphin-mixtral-8x7b":
         return g4f.models.dolphin_mixtral_8x7b
+    elif model_name == "gigachat":
+        return g4f.models.gigachat
+    elif model_name == "claude_3_opus":
+        return g4f.models.claude_3_opus
+    elif model_name == "blackbox":
+        return g4f.models.blackbox
+    elif model_name == "mistral_7b":
+        return g4f.models.mistral_7b
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo
