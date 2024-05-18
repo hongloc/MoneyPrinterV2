@@ -91,6 +91,10 @@ def parse_model(model_name: str) -> any:
         return g4f.models.blackbox
     elif model_name == "mistral_7b":
         return g4f.models.mistral_7b
+    elif model_name == "gpt_4o":
+        return g4f.models.gpt_4o
+    elif model_name == "codellama_34b_instruct":
+        return g4f.models.codellama_34b_instruct
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo
