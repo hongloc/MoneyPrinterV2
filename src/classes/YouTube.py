@@ -32,6 +32,25 @@ mygenerator = Generation()
 # Set ImageMagick Path
 change_settings({"IMAGEMAGICK_BINARY": get_imagemagick_path()})
 
+def get_segments(input_str):
+    regex = r"{ \"(.|\n)*"
+    test_str = input_str
+    matches = re.finditer(regex, test_str, re.MULTILINE)
+    match_end = match_start = 0
+    for matchNum, match in enumerate(matches, start=1):
+        
+        print ("Match {matchNum} was found at {start}-{end}: {match}".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+        match_start = match.start()
+        match_end = match.end()
+        for groupNum in range(0, len(match.groups())):
+            groupNum = groupNum + 1
+            
+            print ("Group {groupNum} found at {start}-{end}: {group}".format(groupNum = groupNum, start = match.start(groupNum), end = match.end(groupNum), group = match.group(groupNum)))
+    if match_end != match_start != 0:
+        test_str = test_str[match_start:match_end]
+        print('test_str after edit: ', test_str)
+    return test_str
+
 def remove_g4f_finishreason(input_str):
     regex = r"<g4f.*"
 
@@ -52,6 +71,8 @@ def remove_g4f_finishreason(input_str):
         test_str = test_str[:match_start]
         print('test_str after edit: ', test_str)
     return test_str
+
+import math
 
 class YouTube:
     """
@@ -160,7 +181,7 @@ class YouTube:
         Returns:
             topic (str): The generated topic.
         """
-        completion = self.generate_response(f"Please generate a specific video idea that takes about the following topic: {self.niche}. Make it exactly one sentence. Only return the topic, nothing else.")
+        completion = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a specific video idea that takes about the following topic: {self.niche}. Make it exactly one sentence. Only return the topic, nothing else.")
         print('completion generate_topic: ', completion)
         if not completion:
             error("Failed to generate Topic.")
@@ -177,7 +198,7 @@ class YouTube:
             script (str): The script of the video.
         """
         prompt = f"""
-        Generate a script for a video in 4 sentences, depending on the subject of the video.
+        ONLY RESPOND IN ENGLISH. Generate a script for a video in 4 sentences, depending on the subject of the video.
 
         The script is to be returned as a string with the specified number of paragraphs.
 
@@ -225,14 +246,14 @@ class YouTube:
         Returns:
             metadata (dict): The generated metadata.
         """
-        title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
+        title = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
         
         # if len(title) > 100:
         #     if get_verbose():
         #         warning("Generated Title is too long. Retrying...")
         #     return self.generate_metadata()
 
-        description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
+        description = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
         
         self.metadata = {
             "title": title,
@@ -250,7 +271,7 @@ class YouTube:
         Returns:
             image_prompts (List[str]): Generated List of image prompts.
         """
-        n_prompts = len(self.script) / 3
+        n_prompts = math.floor(len(self.script) / 3)
 
         prompt = f"""
         Generate {n_prompts} Image Prompts for AI Image Generation,
@@ -277,9 +298,10 @@ class YouTube:
         For context, here is the full text:
         {self.script}
         """
-        # print('prompt generate_prompts: ', prompt)
-
-        completion = str(self.generate_response(prompt, model=parse_model(get_image_prompt_llm())))\
+        print('prompt generate_prompts: ', prompt)
+        respond_from_g4f = self.generate_response(prompt, model=parse_model(get_image_prompt_llm()))
+        print('respond_from_g4f: ', respond_from_g4f)
+        completion = str(respond_from_g4f)\
             .replace("```json", "") \
             .replace("```", "")
 
@@ -308,15 +330,17 @@ class YouTube:
                     return self.generate_prompts()
 
         self.image_prompts = image_prompts
-
+        print('self image_prompts: ', self.image_prompts)
+        print('n_prompts: ', n_prompts)
+        print('lenimageprompts: ', len(self.image_prompts))
         # Check the amount of image prompts
         # and remove if it's more than needed
-        if len(image_prompts) > n_prompts:
-            image_prompts = image_prompts[:n_prompts]
+        if len(self.image_prompts) > n_prompts:
+            self.image_prompts = self.image_prompts[:n_prompts]
 
         success(f"Generated {len(image_prompts)} Image Prompts.")
 
-        return image_prompts
+        return self.image_prompts
 
     def generate_image(self, prompt: str) -> str:
         """
