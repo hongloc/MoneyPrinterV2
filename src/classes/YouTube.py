@@ -246,15 +246,15 @@ class YouTube:
         Returns:
             metadata (dict): The generated metadata.
         """
-        title = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
+        title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters. ONLY RESPOND IN ENGLISH.")
         
         # if len(title) > 100:
         #     if get_verbose():
         #         warning("Generated Title is too long. Retrying...")
         #     return self.generate_metadata()
-
-        description = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
-        
+        print('title: ', title)
+        description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else. ONLY RESPOND IN ENGLISH.")
+        print('description: ', description)
         self.metadata = {
             "title": title,
             "description": description
