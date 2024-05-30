@@ -3,7 +3,7 @@ from moviepy.editor import ImageClip
 from icrawler.builtin import BingImageCrawler
 import random
 
-from media_generators.MediaGenerator import MediaGenerator
+from .MediaGenerator import MediaGenerator
 
 class BingImagesFetcher(MediaGenerator):
     
