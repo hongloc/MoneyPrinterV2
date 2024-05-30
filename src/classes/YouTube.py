@@ -618,7 +618,7 @@ class YouTube:
                             )
                         ]
                     )
-                    .set_start((CLIP_DURATION - EFFECT_DURATION) * idx)
+                    .set_start((req_dur - EFFECT_DURATION) * idx)
                     .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
                 )
                 # set start to 1 since we start from second clip in the original array
