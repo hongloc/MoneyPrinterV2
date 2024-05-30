@@ -27,6 +27,42 @@ from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 from .GeneratorImg import Generation
 
+
+import moviepy.editor as mp
+import math
+from PIL import Image
+import numpy
+
+def zoom_in_effect(clip, zoom_ratio=0.04):
+    def effect(get_frame, t):
+        img = Image.fromarray(get_frame(t))
+        base_size = img.size
+
+        new_size = [
+            math.ceil(img.size[0] * (1 + (zoom_ratio * t))),
+            math.ceil(img.size[1] * (1 + (zoom_ratio * t)))
+        ]
+
+        # The new dimensions must be even.
+        new_size[0] = new_size[0] + (new_size[0] % 2)
+        new_size[1] = new_size[1] + (new_size[1] % 2)
+
+        img = img.resize(new_size, Image.LANCZOS)
+
+        x = math.ceil((new_size[0] - base_size[0]) / 2)
+        y = math.ceil((new_size[1] - base_size[1]) / 2)
+
+        img = img.crop([
+            x, y, new_size[0] - x, new_size[1] - y
+        ]).resize(base_size, Image.LANCZOS)
+
+        result = numpy.array(img)
+        img.close()
+
+        return result
+
+    return clip.fl(effect)
+
 mygenerator = Generation()
 
 # Set ImageMagick Path
@@ -73,6 +109,9 @@ def remove_g4f_finishreason(input_str):
     return test_str
 
 import math
+from .BingImagesFetcher import BingImagesFetcher
+
+fetcher_img = BingImagesFetcher()
 
 class YouTube:
     """
@@ -387,16 +426,20 @@ class YouTube:
                 
             #     return image_path
             ok = True
-            bytes_content = mygenerator.create(prompt)
 
-            image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
+            image_path = fetcher_img.generate(prompt)
+            print('image _ path fetcher: ', image_path)
+
+            # bytes_content = mygenerator.create(prompt)
+
+            # image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
                 
-            with open(image_path, "wb") as image_file:
-                # Write bytes to file
-                image_file.write(bytes_content)
+            # with open(image_path, "wb") as image_file:
+            #     # Write bytes to file
+            #     image_file.write(bytes_content)
 
-            if get_verbose():
-                info(f" => Wrote Image to \"{image_path}\"\n")
+            # if get_verbose():
+            #     info(f" => Wrote Image to \"{image_path}\"\n")
 
             self.images.append(image_path)
             
@@ -513,6 +556,7 @@ class YouTube:
                 clip = ImageClip(image_path)
                 clip.duration = req_dur
                 clip = clip.set_fps(30)
+                clip = clip.set_duration(req_dur)
 
                 # Not all images are same size,
                 # so we need to resize them
@@ -531,12 +575,60 @@ class YouTube:
                 clip = clip.resize((1080, 1920))
 
                 # FX (Fade In)
-                #clip = clip.fadein(2)
+                clip = clip.fadein(2)
 
                 clips.append(clip)
                 tot_dur += clip.duration
 
-        final_clip = concatenate_videoclips(clips)
+        EFFECT_DURATION = 0.3
+        # For the first clip we will need it to start from the beginning and only add
+        # slide out effect to the end of it
+        first_clip = CompositeVideoClip(
+            [
+                clips[0]
+                .set_pos("center")
+                .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+            ]
+        ).set_start((req_dur - EFFECT_DURATION) * 0)
+
+        # For the last video we only need it to start entring the screen from the left going right
+        # but not slide out at the end so the end clip exits on a full image not a partial image or black screen
+        last_clip = (
+            CompositeVideoClip(
+                [
+                    clips[-1]
+                    .set_pos("center")
+                    .fx(transfx.slide_in, duration=EFFECT_DURATION, side="right")
+                ]
+                # -1 because we start with index 0 so we go all the way up to array length - 1
+            )
+            .set_start((req_dur - EFFECT_DURATION) * (len(clips) - 1))
+            .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+        )
+
+        videos = (
+            [first_clip]
+            # For all other clips in the middle, we need them to slide in to the previous clip and out for the next one
+            + [
+                (
+                    CompositeVideoClip(
+                        [
+                            clip.set_pos("center").fx(
+                                transfx.slide_in, duration=EFFECT_DURATION, side="right"
+                            )
+                        ]
+                    )
+                    .set_start((CLIP_DURATION - EFFECT_DURATION) * idx)
+                    .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+                )
+                # set start to 1 since we start from second clip in the original array
+                for idx, clip in enumerate(clips[1:-1], start=1)
+            ]
+            + [last_clip]
+        )
+
+        final_clip = concatenate_videoclips(videos)
+        # final_clip = concatenate_videoclips(clips)
         final_clip = final_clip.set_fps(30)
         random_song = choose_random_song()
         
