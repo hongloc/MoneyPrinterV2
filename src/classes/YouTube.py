@@ -427,19 +427,29 @@ class YouTube:
             #     return image_path
             ok = True
 
-            image_path = fetcher_img.generate(prompt)
-            print('image _ path fetcher: ', image_path)
-
-            # bytes_content = mygenerator.create(prompt)
-
+            # Method 2
+            # image_path_bytes = fetcher_img.generate(prompt)
+            # print('image _ path fetcher: ', image_path_bytes)
             # image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
                 
             # with open(image_path, "wb") as image_file:
-            #     # Write bytes to file
-            #     image_file.write(bytes_content)
-
+            #     with open(image_path_bytes, "rb") as read_image_file:
+            #         # Write bytes to file
+            #         image_file.write(read_image_file.read())
             # if get_verbose():
             #     info(f" => Wrote Image to \"{image_path}\"\n")
+
+            # Method 1
+            bytes_content = mygenerator.create(prompt)
+
+            image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".png")
+                
+            with open(image_path, "wb") as image_file:
+                # Write bytes to file
+                image_file.write(bytes_content)
+
+            if get_verbose():
+                info(f" => Wrote Image to \"{image_path}\"\n")
 
             self.images.append(image_path)
             
