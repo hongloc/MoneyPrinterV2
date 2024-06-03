@@ -97,6 +97,10 @@ def parse_model(model_name: str) -> any:
         return g4f.models.codellama_34b_instruct
     elif model_name == "claude_3_haiku":
         return g4f.models.claude_3_haiku
+    elif model_name == "mistral_7b_v02":
+        return g4f.models.mistral_7b_v02
+    elif model_name == "command_r_plus":
+        return g4f.models.command_r_plus
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo

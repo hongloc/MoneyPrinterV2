@@ -106,6 +106,8 @@ def remove_g4f_finishreason(input_str):
     if match_end != match_start != 0:
         test_str = test_str[:match_start]
         print('test_str after edit: ', test_str)
+    # Solve encrypt
+    test_str = re.sub(r'[^\w\s.?!]', '', test_str)
     return test_str
 
 import math
@@ -200,6 +202,7 @@ class YouTube:
                     }
                 ]
             )
+            print('chat response: ', response)
             return remove_g4f_finishreason(response)
         else:
             response = g4f.ChatCompletion.create(
@@ -211,6 +214,7 @@ class YouTube:
                     }
                 ]
             )
+            print('chat response: ', response)
             return remove_g4f_finishreason(response)
 
     def generate_topic(self) -> str:
@@ -348,6 +352,9 @@ class YouTube:
         # completion = remove_g4f_finishreason(completion)
         image_prompts = []
         print('completion generate_prompts: ', completion)
+        # completion = re.sub(r'[^\w\s.?!]', '', completion)
+        # completion = completion.split('.')
+        print('completion generate_prompts images: ', completion)
         if "image_prompts" in completion:
             image_prompts = json.loads(completion)["image_prompts"]
             print('image prompts: ', image_prompts)
@@ -357,7 +364,8 @@ class YouTube:
                 print('image prompts: ', image_prompts)
                 if get_verbose():
                     info(f" => Generated Image Prompts: {image_prompts}")
-            except Exception:
+            except Exception as e:
+                print('what exception: ', str(e))
                 if get_verbose():
                     warning("GPT returned an unformatted response. Attempting to clean...")
 
