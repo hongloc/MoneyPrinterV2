@@ -107,7 +107,7 @@ def remove_g4f_finishreason(input_str):
         test_str = test_str[:match_start]
         print('test_str after edit: ', test_str)
     # Solve encrypt
-    test_str = re.sub(r'[^\w\s.?!]', '', test_str)
+    # test_str = re.sub(r'[^\w\s.?!]', '', test_str)
     return test_str
 
 import math
