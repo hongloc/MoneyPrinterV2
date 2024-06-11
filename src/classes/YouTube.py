@@ -108,7 +108,9 @@ def remove_g4f_finishreason(input_str):
         print('test_str after edit: ', test_str)
     # Solve encrypt
     # test_str = re.sub(r'[^\w\s.?!]', '', test_str)
-    return test_str
+    pattern = r'\$\@\$(v=v\d+\.\d+-rv1|v=undefined-rv1)\$\@\$(.*?)'
+    cleaned_text = re.sub(pattern, '', test_str)
+    return cleaned_text
 
 import math
 from .BingImagesFetcher import BingImagesFetcher
