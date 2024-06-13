@@ -38,7 +38,7 @@ class Generation:
                     # "seed": randint(1, 10000),
                     # "sampler": "Euler",
                     # "aspect_ratio": "square",
-                    "model": "dreamlike-anime-1.0.safetensors [4520e090]",
+                    "model": "breakdomain_I2428.safetensors [43cc7d2f]",
                     "negative_prompt": "",
                     "steps": "20",
                     "cfg": "7",
