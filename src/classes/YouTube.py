@@ -226,7 +226,7 @@ class YouTube:
         Returns:
             topic (str): The generated topic.
         """
-        completion = self.generate_response(f"ONLY RESPOND IN ENGLISH. Please generate a specific video idea that takes about the following topic: {self.niche}. Make it exactly one sentence. Only return the topic, nothing else.")
+        completion = self.generate_response(f"Please generate a specific video idea that takes about the following topic: {self.niche}. Make it exactly one sentence. Only return the topic, nothing else.")
         print('completion generate_topic: ', completion)
         if not completion:
             error("Failed to generate Topic.")
@@ -243,7 +243,7 @@ class YouTube:
             script (str): The script of the video.
         """
         prompt = f"""
-        ONLY RESPOND IN ENGLISH. Generate a script for a video in 8 sentences, depending on the subject of the video.
+        Generate a script for a video in 8 sentences, depending on the subject of the video.
 
         The script is to be returned as a string with the specified number of paragraphs.
 
@@ -291,14 +291,14 @@ class YouTube:
         Returns:
             metadata (dict): The generated metadata.
         """
-        title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters. ONLY RESPOND IN ENGLISH.")
+        title = self.generate_response(f"Please generate a YouTube Video Title for the following subject, including hashtags: {self.subject}. Only return the title, nothing else. Limit the title under 100 characters.")
         
         # if len(title) > 100:
         #     if get_verbose():
         #         warning("Generated Title is too long. Retrying...")
         #     return self.generate_metadata()
         print('title: ', title)
-        description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else. ONLY RESPOND IN ENGLISH.")
+        description = self.generate_response(f"Please generate a YouTube Video Description for the following script: {self.script}. Only return the description, nothing else.")
         print('description: ', description)
         self.metadata = {
             "title": title,
