@@ -26,7 +26,7 @@ class Generation:
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36",
         }
         try:
-            changed_prompt = prompt + " Pixar style art, cinematic UHD"
+            changed_prompt = "Pixar style art, cinematic UHD. " + prompt
             print('changed_prompt: ', changed_prompt)
             resp = get(
                 "https://api.prodia.com/generate",
