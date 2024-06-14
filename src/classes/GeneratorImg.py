@@ -27,6 +27,7 @@ class Generation:
         }
         try:
             changed_prompt = prompt + " Pixar style art, cinematic UHD"
+            print('changed_prompt: ', changed_prompt)
             resp = get(
                 "https://api.prodia.com/generate",
                 params={
