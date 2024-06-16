@@ -136,7 +136,8 @@ def upload_youtube_using_selenium(video_path, title, description):
 
 if __name__ == "__main__":
     # upload_youtube_using_selenium("test-upload-file.mp4", "test upload se col title", "test upload desc")
-    parent_folder = r"D:\myprojs\MoneyPrinterV2"
+    # parent_folder = r"D:\myprojs\MoneyPrinterV2"
+    parent_folder = r"D:\myprojects\relevant-jobs\MoneyPrinterV2"
     src = "shorts"
     for fname in os.listdir(src):
         # build the path to the folder
