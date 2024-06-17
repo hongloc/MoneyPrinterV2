@@ -101,6 +101,12 @@ def parse_model(model_name: str) -> any:
         return g4f.models.mistral_7b_v02
     elif model_name == "command_r_plus":
         return g4f.models.command_r_plus
+    elif model_name == "reka_core":
+        return g4f.models.reka_core
+    elif model_name == "claude_v2":
+        return g4f.models.claude_v2
+    elif model_name == "claude_3_sonnet":
+        return g4f.models.claude_3_sonnet
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo
