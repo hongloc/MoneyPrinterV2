@@ -55,58 +55,46 @@ AMAZON_PRODUCT_TITLE_ID = "productTitle"
 AMAZON_FEATURE_BULLETS_ID = "feature-bullets"
 
 def parse_model(model_name: str) -> any:
-    if model_name == "gpt4":
+    if model_name == "gpt4": # 018
         return g4f.models.gpt_4
-    elif model_name == "gpt35_turbo":
-        return g4f.models.gpt_35_turbo
-    elif model_name == "llama2_7b":
-        return g4f.models.llama2_7b
-    elif model_name == "llama2_13b":
-        return g4f.models.llama2_13b
-    elif model_name == "llama2_70b":
-        return g4f.models.llama2_70b
-    elif model_name == "mixtral_8x7b":
-        return g4f.models.mixtral_8x7b
-    elif model_name == "openchat_35":
-        return g4f.models.openchat_35
-    elif model_name == "dbrx-instruct":
-        return g4f.models.dbrx_instruct
-    elif model_name == "lzlv-70b":
-        return g4f.models.lzlv_70b
-    elif model_name == "airoboros-70b":
-        return g4f.models.airoboros_70b
-    elif model_name == "pi":
-        return g4f.models.pi
-    elif model_name == "codellama-34b-instruct":
-        return g4f.models.codellama_34b_instruct
-    elif model_name == "codellama-70b-instruct":
-        return g4f.models.codellama_70b_instruct
-    elif model_name == "dolphin-mixtral-8x7b":
-        return g4f.models.dolphin_mixtral_8x7b
-    elif model_name == "gigachat":
-        return g4f.models.gigachat
-    elif model_name == "claude_3_opus":
-        return g4f.models.claude_3_opus
-    elif model_name == "blackbox":
-        return g4f.models.blackbox
-    elif model_name == "mistral_7b":
-        return g4f.models.mistral_7b
-    elif model_name == "gpt_4o":
+    elif model_name == "gpt_4o": # okay
         return g4f.models.gpt_4o
-    elif model_name == "codellama_34b_instruct":
+    elif model_name == "gigachat": # 0 api key
+        return g4f.models.gigachat
+    elif model_name == "meta": # 500
+        return g4f.models.meta
+    elif model_name == "llama3_8b_instruct": # 018
+        return g4f.models.llama3_8b_instruct
+    elif model_name == "llama3_70b_instruct":
+        return g4f.models.llama3_70b_instruct
+    elif model_name == "codellama_34b_instruct": # 500
         return g4f.models.codellama_34b_instruct
+    elif model_name == "codellama_70b_instruct": # 018
+        return g4f.models.codellama_70b_instruct
+    elif model_name == "mixtral_8x7b": # 500
+        return g4f.models.mixtral_8x7b
+    elif model_name == "mistral_7b": # 500
+        return g4f.models.mistral_7b
+    elif model_name == "mistral_7b_v02": # 500
+        return g4f.models.mistral_7b_v02
+    elif model_name == "claude_v2": # 018
+        return g4f.models.claude_v2
+    elif model_name == "claude_3_opus": # 500
+        return g4f.models.claude_3_opus
+    elif model_name == "claude_3_sonnet": # 500
+        return g4f.models.claude_3_sonnet
     elif model_name == "claude_3_haiku":
         return g4f.models.claude_3_haiku
-    elif model_name == "mistral_7b_v02":
-        return g4f.models.mistral_7b_v02
-    elif model_name == "command_r_plus":
+    elif model_name == "pi": # 500
+        return g4f.models.pi
+    elif model_name == "dbrx_instruct": # 018
+        return g4f.models.dbrx_instruct
+    elif model_name == "command_r_plus": # 500
         return g4f.models.command_r_plus
-    elif model_name == "reka_core":
+    elif model_name == "blackbox":
+        return g4f.models.blackbox
+    elif model_name == "reka_core": # 0 cookie
         return g4f.models.reka_core
-    elif model_name == "claude_v2":
-        return g4f.models.claude_v2
-    elif model_name == "claude_3_sonnet":
-        return g4f.models.claude_3_sonnet
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo
