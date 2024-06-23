@@ -599,7 +599,7 @@ class YouTube:
                 clip = clip.resize((1080, 1920))
 
                 # FX (Fade In)
-                clip = clip.fadein(2)
+                # clip = clip.fadein(2)
 
                 clips.append(clip)
                 tot_dur += clip.duration
