@@ -42,6 +42,7 @@ class Generation:
             # }
             # url = "https://api.prodia.com/v1/sd/generate"
             # resp = post(url, json=payload, headers=headers)
+            
             resp = get(
                 "https://api.prodia.com/generate",
                 params={
@@ -74,12 +75,13 @@ class Generation:
             )
             data = resp.json()
             print('data: ', data)
+            time.sleep(20)
             while True:
                 # resp = get(f"https://api.prodia.com/v1/job/{data['job']}", headers=headers)
                 resp = get(f"https://api.prodia.com/job/{data['job']}", headers=headers)
                 json = resp.json()
                 print('json: ', json)
-                time.sleep(5)
+                time.sleep(20)
                 if json["status"] == "succeeded":
                     return get(
                         f"https://images.prodia.xyz/{data['job']}.png?download=1",
