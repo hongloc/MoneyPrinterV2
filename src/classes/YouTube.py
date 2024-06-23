@@ -604,55 +604,55 @@ class YouTube:
                 clips.append(clip)
                 tot_dur += clip.duration
 
-        EFFECT_DURATION = 0.3
-        # For the first clip we will need it to start from the beginning and only add
-        # slide out effect to the end of it
-        first_clip = CompositeVideoClip(
-            [
-                clips[0]
-                .set_pos("center")
-                .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
-            ]
-        ).set_start((req_dur - EFFECT_DURATION) * 0)
+        # EFFECT_DURATION = 0.3
+        # # For the first clip we will need it to start from the beginning and only add
+        # # slide out effect to the end of it
+        # first_clip = CompositeVideoClip(
+        #     [
+        #         clips[0]
+        #         .set_pos("center")
+        #         .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+        #     ]
+        # ).set_start((req_dur - EFFECT_DURATION) * 0)
 
-        # For the last video we only need it to start entring the screen from the left going right
-        # but not slide out at the end so the end clip exits on a full image not a partial image or black screen
-        last_clip = (
-            CompositeVideoClip(
-                [
-                    clips[-1]
-                    .set_pos("center")
-                    .fx(transfx.slide_in, duration=EFFECT_DURATION, side="right")
-                ]
-                # -1 because we start with index 0 so we go all the way up to array length - 1
-            )
-            .set_start((req_dur - EFFECT_DURATION) * (len(clips) - 1))
-            .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
-        )
+        # # For the last video we only need it to start entring the screen from the left going right
+        # # but not slide out at the end so the end clip exits on a full image not a partial image or black screen
+        # last_clip = (
+        #     CompositeVideoClip(
+        #         [
+        #             clips[-1]
+        #             .set_pos("center")
+        #             .fx(transfx.slide_in, duration=EFFECT_DURATION, side="right")
+        #         ]
+        #         # -1 because we start with index 0 so we go all the way up to array length - 1
+        #     )
+        #     .set_start((req_dur - EFFECT_DURATION) * (len(clips) - 1))
+        #     .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+        # )
 
-        videos = (
-            [first_clip]
-            # For all other clips in the middle, we need them to slide in to the previous clip and out for the next one
-            + [
-                (
-                    CompositeVideoClip(
-                        [
-                            clip.set_pos("center").fx(
-                                transfx.slide_in, duration=EFFECT_DURATION, side="right"
-                            )
-                        ]
-                    )
-                    .set_start((req_dur - EFFECT_DURATION) * idx)
-                    .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
-                )
-                # set start to 1 since we start from second clip in the original array
-                for idx, clip in enumerate(clips[1:-1], start=1)
-            ]
-            + [last_clip]
-        )
+        # videos = (
+        #     [first_clip]
+        #     # For all other clips in the middle, we need them to slide in to the previous clip and out for the next one
+        #     + [
+        #         (
+        #             CompositeVideoClip(
+        #                 [
+        #                     clip.set_pos("center").fx(
+        #                         transfx.slide_in, duration=EFFECT_DURATION, side="right"
+        #                     )
+        #                 ]
+        #             )
+        #             .set_start((req_dur - EFFECT_DURATION) * idx)
+        #             .fx(transfx.slide_out, duration=EFFECT_DURATION, side="left")
+        #         )
+        #         # set start to 1 since we start from second clip in the original array
+        #         for idx, clip in enumerate(clips[1:-1], start=1)
+        #     ]
+        #     + [last_clip]
+        # )
 
-        final_clip = concatenate_videoclips(videos)
-        # final_clip = concatenate_videoclips(clips)
+        # final_clip = concatenate_videoclips(videos)
+        final_clip = concatenate_videoclips(clips)
         final_clip = final_clip.set_fps(30)
         random_song = choose_random_song()
         
