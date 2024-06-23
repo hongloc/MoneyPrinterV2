@@ -5,7 +5,7 @@ freeGPT's prodia module
 from requests import get
 from random import randint
 from requests.exceptions import RequestException
-
+import time
 
 class Generation:
     """
@@ -24,6 +24,7 @@ class Generation:
         """
         headers = {
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36",
+            "X-Prodia-Key": "555889c5-0dd6-43af-b96c-a7d0aa8d6186"
         }
         try:
             changed_prompt = "Korean idol face. " + prompt
@@ -59,9 +60,12 @@ class Generation:
                 timeout=30,
             )
             data = resp.json()
+            print('data: ', data)
             while True:
                 resp = get(f"https://api.prodia.com/job/{data['job']}", headers=headers)
                 json = resp.json()
+                print('json: ', json)
+                time.sleep(5)
                 if json["status"] == "succeeded":
                     return get(
                         f"https://images.prodia.xyz/{data['job']}.png?download=1",
