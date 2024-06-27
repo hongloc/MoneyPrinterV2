@@ -113,9 +113,9 @@ def remove_g4f_finishreason(input_str):
     return cleaned_text
 
 import math
-from .BingImagesFetcher import BingImagesFetcher
+# from .BingImagesFetcher import BingImagesFetcher
 
-fetcher_img = BingImagesFetcher()
+# fetcher_img = BingImagesFetcher()
 
 class YouTube:
     """
