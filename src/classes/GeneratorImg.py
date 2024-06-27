@@ -30,7 +30,8 @@ class Generation:
             # "X-Prodia-Key": "555889c5-0dd6-43af-b96c-a7d0aa8d6186"
         }
         try:
-            changed_prompt = "Korean idol face. " + prompt
+            # changed_prompt = "Korean idol face. " + prompt
+            changed_prompt = prompt
             print('changed_prompt: ', changed_prompt)
             # prodia = prodiapy.Prodia(api_key="555889c5-0dd6-43af-b96c-a7d0aa8d6186")
 
@@ -110,7 +111,7 @@ class Generation:
             )
             data = resp.json()
             print('data: ', data)
-            time.sleep(20)
+            time.sleep(5)
             while True:
                 # resp = get(f"https://api.prodia.com/v1/job/{data['job']}", headers=headers)
                 
@@ -120,7 +121,7 @@ class Generation:
                 
                 json = resp.json()
                 print('json: ', json)
-                time.sleep(20)
+                time.sleep(5)
                 if json["status"] == "succeeded":
                     return s.get(
                         f"https://images.prodia.xyz/{data['job']}.png?download=1",
