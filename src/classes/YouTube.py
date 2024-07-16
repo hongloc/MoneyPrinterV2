@@ -555,8 +555,9 @@ class YouTube:
         """
         combined_image_path = os.path.join(ROOT_DIR, ".mp", str(uuid4()) + ".mp4")
         threads = get_threads()
-        tts_clip = AudioFileClip(self.tts_path)
-        max_duration = tts_clip.duration
+        # tts_clip = AudioFileClip(self.tts_path)
+        # max_duration = tts_clip.duration
+        max_duration = 5
         req_dur = max_duration / len(self.images)
 
         # Make a generator that returns a TextClip when called with consecutive
@@ -676,7 +677,7 @@ class YouTube:
         ])
 
         final_clip = final_clip.set_audio(comp_audio)
-        final_clip = final_clip.set_duration(tts_clip.duration)
+        final_clip = final_clip.set_duration(max_duration)
 
         # Add subtitles
         final_clip = CompositeVideoClip([
