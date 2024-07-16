@@ -670,14 +670,9 @@ class YouTube:
         # Turn down volume
         random_song_clip = random_song_clip.fx(afx.volumex, 0.05)
         comp_audio = CompositeAudioClip([
-            tts_clip.set_fps(44100),
+            # tts_clip.set_fps(44100),
             random_song_clip
         ])
-        # random_song_clip = random_song_clip.fx(afx.volumex, 0.5)
-        # comp_audio = CompositeAudioClip([
-        #     tts_clip.set_fps(44100),
-        #     random_song_clip
-        # ])
 
         final_clip = final_clip.set_audio(comp_audio)
         final_clip = final_clip.set_duration(tts_clip.duration)
@@ -685,7 +680,7 @@ class YouTube:
         # Add subtitles
         final_clip = CompositeVideoClip([
             final_clip,
-            subtitles
+            # subtitles
         ])
 
         final_clip.write_videofile(combined_image_path, threads=threads)
