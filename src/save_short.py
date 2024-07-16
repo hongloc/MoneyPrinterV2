@@ -26,8 +26,8 @@ def save_image(img_path):
   # Path 
   path = os.path.join(parent_dir_imgs, name_file) 
   try: 
-    os.makedirs(path, exist_ok = True) 
-    print("Directory '%s' created successfully" % name_file) 
+    os.makedirs(parent_dir_imgs, exist_ok = True) 
+    print("Directory '%s' created successfully" % parent_dir_imgs) 
   except OSError as error: 
-    print("Directory '%s' can not be created" % name_file)
-  shutil.copyfile(img_path, path + '/' + name_file)
+    print("Directory '%s' can not be created" % parent_dir_imgs)
+  shutil.copyfile(img_path, path)
