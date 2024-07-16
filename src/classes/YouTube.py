@@ -32,6 +32,7 @@ import moviepy.editor as mp
 import math
 from PIL import Image
 import numpy
+from src.save_short import save_image
 
 def zoom_in_effect(clip, zoom_ratio=0.04):
     def effect(get_frame, t):
@@ -464,7 +465,7 @@ class YouTube:
 
             if get_verbose():
                 info(f" => Wrote Image to \"{image_path}\"\n")
-
+            save_image(image_path)
             self.images.append(image_path)
             
             return image_path
