@@ -32,7 +32,7 @@ import moviepy.editor as mp
 import math
 from PIL import Image
 import numpy
-from src.save_short import save_image
+from save_short import save_image
 
 def zoom_in_effect(clip, zoom_ratio=0.04):
     def effect(get_frame, t):
