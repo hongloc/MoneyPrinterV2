@@ -397,7 +397,7 @@ class YouTube:
 
         return self.image_prompts
 
-    def generate_image(self, prompt: str) -> str:
+    def generate_image(self, prompt: str, folder_name: str) -> str:
         """
         Generates an AI Image based on the given prompt.
 
@@ -465,7 +465,7 @@ class YouTube:
 
             if get_verbose():
                 info(f" => Wrote Image to \"{image_path}\"\n")
-            save_image(image_path)
+            save_image(image_path, folder_name)
             self.images.append(image_path)
             
             return image_path
@@ -714,8 +714,9 @@ class YouTube:
         self.generate_prompts()
 
         # Generate the Images
+        generated_uuid_folder_img = str(uuid4())
         for prompt in self.image_prompts:
-            self.generate_image(prompt)
+            self.generate_image(prompt, generated_uuid_folder_img)
 
         # Generate the TTS
         self.generate_script_to_speech(tts_instance)

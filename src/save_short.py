@@ -20,14 +20,14 @@ def save_short(youtube_path, title, description):
   f.close()
   shutil.copyfile(youtube_path, path + '/' + name_file)
 
-def save_image(img_path):
+def save_image(img_path, folder_name):
   global parent_dir_imgs
   name_file = img_path.split('/')[-1]
   # Path 
-  path = os.path.join(parent_dir_imgs, name_file) 
+  path = os.path.join(parent_dir_imgs, folder_name) 
   try: 
-    os.makedirs(parent_dir_imgs, exist_ok = True) 
-    print("Directory '%s' created successfully" % parent_dir_imgs) 
+    os.makedirs(path, exist_ok = True) 
+    print("Directory '%s' created successfully" % path) 
   except OSError as error: 
-    print("Directory '%s' can not be created" % parent_dir_imgs)
-  shutil.copyfile(img_path, path)
+    print("Directory '%s' can not be created" % path)
+  shutil.copyfile(img_path, path + '/' + name_file)
