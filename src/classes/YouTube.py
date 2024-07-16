@@ -670,7 +670,7 @@ class YouTube:
         random_song_clip = AudioFileClip(random_song).set_fps(44100)
 
         # Turn down volume
-        random_song_clip = random_song_clip.fx(afx.volumex, 0.05)
+        random_song_clip = random_song_clip.fx(afx.volumex, 0.5)
         comp_audio = CompositeAudioClip([
             # tts_clip.set_fps(44100),
             random_song_clip
