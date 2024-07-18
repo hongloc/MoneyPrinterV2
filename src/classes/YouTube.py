@@ -322,7 +322,7 @@ class YouTube:
             image_prompts (List[str]): Generated List of image prompts.
         """
         # n_prompts = math.floor(len(self.script) / 3)
-        n_prompts = 10
+        n_prompts = 20
 
         prompt = f"""
         Generate {n_prompts} Image Prompts for AI Image Generation,
@@ -557,7 +557,7 @@ class YouTube:
         threads = get_threads()
         # tts_clip = AudioFileClip(self.tts_path)
         # max_duration = tts_clip.duration
-        max_duration = 5
+        max_duration = 120
         req_dur = max_duration / len(self.images)
 
         # Make a generator that returns a TextClip when called with consecutive
