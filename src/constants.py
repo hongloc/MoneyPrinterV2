@@ -95,6 +95,20 @@ def parse_model(model_name: str) -> any:
         return g4f.models.blackbox
     elif model_name == "reka_core": # 0 cookie
         return g4f.models.reka_core
+    elif model_name == "nemotron_4_340b_instruct":
+        return g4f.models.nemotron_4_340b_instruct
+    elif model_name == "Phi_3_mini_4k_instruct":
+        return g4f.models.Phi_3_mini_4k_instruct
+    elif model_name == "Yi_1_5_34B_Chat":
+        return g4f.models.Yi_1_5_34B_Chat
+    elif model_name == "Nous_Hermes_2_Mixtral_8x7B_DPO":
+        return g4f.models.Nous_Hermes_2_Mixtral_8x7B_DPO
+    elif model_name == "llama_2_70b_chat":
+        return g4f.models.llama_2_70b_chat
+    elif model_name == "gemma_2_9b_it":
+        return g4f.models.gemma_2_9b_it
+    elif model_name == "gemma_2_27b_it":
+        return g4f.models.gemma_2_27b_it
     else:
         # Default model is gpt3.5-turbo
         return g4f.models.gpt_35_turbo
