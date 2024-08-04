@@ -106,7 +106,7 @@ class Generation:
                     # blazing_drive_v10g.safetensors [ca1c1eab] ani
                     # cetusMix_Version35.safetensors [de2f2560] ani
                     # Counterfeit_v30.safetensors [9e2a8f19] ani
-                    "model": "EimisAnimeDiffusion_V1.ckpt [4f828a15]", # EimisAnimeDiffusion_V1.ckpt [4f828a15] first
+                    "model": "anythingV5_PrtRE.safetensors [893e49b9]", # EimisAnimeDiffusion_V1.ckpt [4f828a15] first
                     "negative_prompt": "verybadimagenegative_v1.3, ng_deepnegative_v1_75t, (ugly face:0.5),cross-eyed,sketches, (worst quality:2), (low quality:2.1), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, bad anatomy, DeepNegative, facing away, tilted head, {Multiple people}, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worstquality, low quality, normal quality, jpegartifacts, signature, watermark, username, blurry, bad feet, cropped, poorly drawn hands, poorly drawn face, mutation, deformed, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, extra fingers, fewer digits, extra limbs, extra arms,extra legs, malformed limbs, fused fingers, too many fingers, long neck, cross-eyed,mutated hands, polar lowres, bad body, bad proportions, gross proportions, text, error, missing fingers, missing arms, missing legs, extra digit, extra arms, extra leg, extra foot, repeating hair",
                     "steps": "20",
                     "cfg": "7",
