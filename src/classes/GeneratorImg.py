@@ -99,13 +99,13 @@ class Generation:
                     # epicrealism_naturalSinRC1VAE.safetensors [90a4c676]
                     # revAnimated_v122.safetensors [3f4fefd9]
                     # meinamix_meinaV11.safetensors [b56ce717] ani
-                    # neverendingDream_v122.safetensors [f964ceeb] 3d hen
+                    # neverendingDream_v122.safetensors [f964ceeb] 3d hen failed
                     # AOM3A3_orangemixs.safetensors [9600da17] ani
-                    # dalcefo_v4.safetensors [425952fe] ani
+                    # dalcefo_v4.safetensors [425952fe] ani wont restrict
                     # aniverse_v30.safetensors [579e6f85] ani
                     # blazing_drive_v10g.safetensors [ca1c1eab] ani
-                    # cetusMix_Version35.safetensors [de2f2560] ani
-                    # Counterfeit_v30.safetensors [9e2a8f19] ani
+                    # cetusMix_Version35.safetensors [de2f2560] ani wont restrict
+                    # Counterfeit_v30.safetensors [9e2a8f19] ani wont restrict
                     "model": "blazing_drive_v10g.safetensors [ca1c1eab]", # EimisAnimeDiffusion_V1.ckpt [4f828a15] first
                     "negative_prompt": "verybadimagenegative_v1.3, ng_deepnegative_v1_75t, (ugly face:0.5),cross-eyed,sketches, (worst quality:2), (low quality:2.1), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, bad anatomy, DeepNegative, facing away, tilted head, {Multiple people}, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worstquality, low quality, normal quality, jpegartifacts, signature, watermark, username, blurry, bad feet, cropped, poorly drawn hands, poorly drawn face, mutation, deformed, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, extra fingers, fewer digits, extra limbs, extra arms,extra legs, malformed limbs, fused fingers, too many fingers, long neck, cross-eyed,mutated hands, polar lowres, bad body, bad proportions, gross proportions, text, error, missing fingers, missing arms, missing legs, extra digit, extra arms, extra leg, extra foot, repeating hair",
                     "steps": "20",

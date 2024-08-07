@@ -557,7 +557,7 @@ class YouTube:
         threads = get_threads()
         # tts_clip = AudioFileClip(self.tts_path)
         # max_duration = tts_clip.duration
-        max_duration = 120
+        max_duration = 57 #57 120
         req_dur = max_duration / len(self.images)
 
         # Make a generator that returns a TextClip when called with consecutive

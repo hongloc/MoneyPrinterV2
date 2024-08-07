@@ -18,3 +18,10 @@ bb53e401-7bf3-4b1e-8e08-83c188dadb9d.mp4 aniverse_v30.safetensors [579e6f85]
 7ace86e1-5c8c-4678-8fbb-3ab5c9e70578.mp4 blazing_drive_v10g.safetensors [ca1c1eab] ok
 a3b9 cetusMix_Version35.safetensors [de2f2560]
 08557d0f-c63f-4f91-8430-188749a708ab.mp4 Counterfeit_v30.safetensors [9e2a8f19]
+
+
+
+
+
+5eac7126 AOM3A3_orangemixs
+METADATA:  {'title': '"Elegant Beauty in Pastel | 4K Lookbook | Natural Light Photography #Fashion #Lookbook #Ethereal"', 'description': 'Experience a vision of elegance and modern chic as a young woman stands poised by a sunlit window. Her long, dark hair cascades over her shoulders, complemented by a pastel pink, semi-sheer cropped top and matching underwear that accentuate her graceful silhouette. Bathed in natural light, her ethereal beauty and soft features glow against a minimalistic background. This scene exudes delicate charm and sophistication, capturing a serene, effortless style with every detail. Discover a perfect blend of timeless grace and contemporary fashion in this exquisite vision.'}
